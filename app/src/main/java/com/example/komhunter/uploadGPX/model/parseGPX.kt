@@ -1,6 +1,6 @@
 package com.example.komhunter.uploadGPX.model
 
-import com.example.komhunter.uploadGPX.data.GpxCoordinate
+import com.example.komhunter.core.database.GpxCoordinate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.xmlpull.v1.XmlPullParser
@@ -36,7 +36,11 @@ suspend fun parseGpx(inputStream: InputStream): List<GpxCoordinate> {
                 }
                 XmlPullParser.END_TAG -> {
                     if (name == "trkpt" && latitude != null && longitude != null) {
-                        coordinates.add(GpxCoordinate(latitude, longitude, elevation))
+                        coordinates.add(GpxCoordinate(
+                            latitude = latitude,
+                            longitude = longitude,
+                            elevation = elevation
+                        ))
                         latitude = null
                         longitude = null
                         elevation = null

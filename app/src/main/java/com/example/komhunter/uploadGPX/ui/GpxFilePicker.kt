@@ -10,7 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.platform.LocalContext
-import com.example.komhunter.uploadGPX.data.GpxCoordinate
+import com.example.komhunter.core.database.GpxCoordinate
+import com.example.komhunter.core.database.GpxDatabase
 import com.example.komhunter.uploadGPX.model.parseGpx
 import kotlinx.coroutines.launch
 import java.io.InputStream
@@ -36,6 +37,10 @@ fun GpxFilePicker(
                 val inputStream: InputStream? = context.contentResolver.openInputStream(it)
                 inputStream?.let { stream ->
                     val coordinates = parseGpx(stream)
+
+                    val db = GpxDatabase.getDatabase(context)
+                    db.gpxCoordinateDao().insertAll(coordinates)
+
                     onGpxParsedState.value(coordinates)
                 }
             }

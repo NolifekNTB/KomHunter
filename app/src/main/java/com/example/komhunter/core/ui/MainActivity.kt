@@ -1,22 +1,20 @@
-package com.example.komhunter.core
+package com.example.komhunter.core.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
 import com.example.komhunter.core.ui.theme.KomHunterTheme
-import com.example.komhunter.uploadGPX.data.GpxCoordinate
+import com.example.komhunter.core.database.GpxCoordinate
+import com.example.komhunter.core.database.GpxDatabase
 import com.example.komhunter.uploadGPX.ui.GpxFilePicker
 
 class MainActivity : ComponentActivity() {
@@ -33,7 +31,13 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen() {
+    val context = LocalContext.current
     val coordinatesState = remember { mutableStateOf<List<GpxCoordinate>>(emptyList()) }
+
+    LaunchedEffect(Unit) {
+        val db = GpxDatabase.getDatabase(context)
+        coordinatesState.value = db.gpxCoordinateDao().getAllCoordinates()
+    }
 
     Column {
         GpxFilePicker { coordinates ->
