@@ -1,4 +1,4 @@
-package com.example.komhunter.ui.theme
+package com.example.komhunter.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

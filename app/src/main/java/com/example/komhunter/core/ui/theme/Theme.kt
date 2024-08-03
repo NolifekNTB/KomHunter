@@ -1,6 +1,5 @@
-package com.example.komhunter.ui.theme
+package com.example.komhunter.core.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
