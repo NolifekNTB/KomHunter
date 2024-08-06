@@ -2,7 +2,10 @@ package com.example.komhunter.maps.ui
 
 import android.content.Context
 import android.graphics.Color
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -12,7 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
-import com.example.komhunter.core.database.GpxCoordinate
+import com.example.komhunter.core.data.database.GpxCoordinate
 import com.example.komhunter.uploadGPX.ui.GpxViewModel
 import kotlinx.coroutines.launch
 import org.osmdroid.tileprovider.tilesource.ITileSource
@@ -23,11 +26,10 @@ import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Polyline
 
 @Composable
-fun MapScreen(viewModel: GpxViewModel) {
+fun MapScreen(viewModel: GpxViewModel, onNavigate: () -> Unit) {
     val context = LocalContext.current
     val gpxCoordinates = viewModel.gpxCoordinates.collectAsState().value
     val mapView = rememberMapViewWithLifecycle(context)
-
 
     LaunchedEffect(gpxCoordinates) {
         if (gpxCoordinates.isNotEmpty()) {
@@ -56,10 +58,15 @@ fun MapScreen(viewModel: GpxViewModel) {
         }
     }
 
-    AndroidView(
-        modifier = Modifier.fillMaxSize(),
-        factory = { mapView }
-    )
+    Column {
+        Button(onClick = { onNavigate() }, modifier = Modifier.weight(0.2f)) {
+            Text("Show weather data")
+        }
+        AndroidView(
+            modifier = Modifier.weight(0.8f),
+            factory = { mapView }
+        )
+    }
 }
 
 @Composable

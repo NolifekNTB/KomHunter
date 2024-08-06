@@ -1,9 +1,9 @@
 package com.example.komhunter.uploadGPX.data
 
 import android.content.Context
-import com.example.komhunter.core.database.GpxCoordinate
-import com.example.komhunter.core.database.GpxCoordinateDao
-import com.example.komhunter.core.database.GpxDatabase
+import com.example.komhunter.core.data.database.GpxCoordinate
+import com.example.komhunter.core.data.database.GpxCoordinateDao
+import com.example.komhunter.core.data.database.GpxDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 

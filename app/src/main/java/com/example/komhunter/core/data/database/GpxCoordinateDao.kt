@@ -1,4 +1,4 @@
-package com.example.komhunter.core.database
+package com.example.komhunter.core.data.database
 
 import androidx.room.Dao
 import androidx.room.Insert

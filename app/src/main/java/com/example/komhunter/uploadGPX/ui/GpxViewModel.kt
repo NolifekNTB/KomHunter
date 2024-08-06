@@ -3,7 +3,7 @@ package com.example.komhunter.uploadGPX.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.komhunter.core.database.GpxCoordinate
+import com.example.komhunter.core.data.database.GpxCoordinate
 import com.example.komhunter.uploadGPX.data.GpxRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

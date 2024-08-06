@@ -7,6 +7,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.komhunter.Weather.ui.WeatherScreen
 import com.example.komhunter.maps.ui.MapScreen
 import com.example.komhunter.uploadGPX.ui.GpxFilePicker
 import com.example.komhunter.uploadGPX.ui.GpxViewModel
@@ -17,15 +18,18 @@ fun AppNavigation(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "gpxPicker") {
         composable("gpxPicker") { entry ->
             val viewModel = entry.sharedViewModel<GpxViewModel>(navController, "gpxPicker")
-
             GpxFilePicker(viewModel) {
                 navController.navigate("mapView")
             }
         }
         composable("mapView") { entry ->
             val viewModel = entry.sharedViewModel<GpxViewModel>(navController, "mapView")
-
-            MapScreen(viewModel)
+            MapScreen(viewModel) {
+                navController.navigate("weatherScreen")
+            }
+        }
+        composable("weatherScreen") {
+            WeatherScreen()
         }
     }
 }

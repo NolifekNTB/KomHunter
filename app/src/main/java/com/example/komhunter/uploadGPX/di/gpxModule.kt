@@ -1,6 +1,6 @@
 package com.example.komhunter.uploadGPX.di
 
-import com.example.komhunter.core.database.GpxDatabase
+import com.example.komhunter.core.data.database.GpxDatabase
 import com.example.komhunter.uploadGPX.data.GpxRepository
 import com.example.komhunter.uploadGPX.ui.GpxViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel

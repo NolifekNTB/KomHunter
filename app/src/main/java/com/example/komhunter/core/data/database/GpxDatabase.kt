@@ -1,4 +1,4 @@
-package com.example.komhunter.core.database
+package com.example.komhunter.core.data.database
 
 import android.content.Context
 import androidx.room.Database

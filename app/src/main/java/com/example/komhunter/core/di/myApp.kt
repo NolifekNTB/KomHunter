@@ -17,6 +17,7 @@ class myApp: Application() {
         startKoin{
             androidContext(this@myApp)
             modules(gpxModule)
+            modules(networkModule)
         }
     }
 }
