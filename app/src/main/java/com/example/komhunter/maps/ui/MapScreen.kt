@@ -1,7 +1,7 @@
 package com.example.komhunter.maps.ui
 
+import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -13,10 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.komhunter.core.database.GpxCoordinate
-import com.example.komhunter.core.database.GpxDatabase
 import com.example.komhunter.uploadGPX.ui.GpxViewModel
 import kotlinx.coroutines.launch
+import org.osmdroid.tileprovider.tilesource.ITileSource
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.BoundingBox
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Polyline
@@ -24,43 +25,50 @@ import org.osmdroid.views.overlay.Polyline
 @Composable
 fun MapScreen(viewModel: GpxViewModel) {
     val context = LocalContext.current
-    val gpxCoordinatesDb = viewModel.gpxCoordinates.collectAsState().value
-    val gpxCoordinates = remember { mutableStateOf<List<GpxCoordinate>>(emptyList()) }
+    val gpxCoordinates = viewModel.gpxCoordinates.collectAsState().value
+    val mapView = rememberMapViewWithLifecycle(context)
 
-    LaunchedEffect(Unit) {
-        launch {
-            gpxCoordinates.value = gpxCoordinatesDb
+
+    LaunchedEffect(gpxCoordinates) {
+        if (gpxCoordinates.isNotEmpty()) {
+            val points = gpxCoordinates.map { GeoPoint(it.latitude, it.longitude) } //convert all gpx coordinates to GeoPoints
+            val polyline = Polyline().apply {  //create a polyline
+                setPoints(points)
+                color = Color.BLUE
+                width = 10f
+            }
+            mapView.overlays.clear()
+            mapView.overlays.add(polyline)
+
+            val latitudes = gpxCoordinates.map { it.latitude }
+            val longitudes = gpxCoordinates.map { it.longitude }
+            val boundingBox = BoundingBox(
+                latitudes.maxOrNull() ?: 0.0,
+                longitudes.maxOrNull() ?: 0.0,
+                latitudes.minOrNull() ?: 0.0,
+                longitudes.minOrNull() ?: 0.0
+            )
+
+            // Set zoom to fit the bounding box
+            mapView.zoomToBoundingBox(boundingBox, true)
+
+            mapView.invalidate()
         }
     }
 
+    AndroidView(
+        modifier = Modifier.fillMaxSize(),
+        factory = { mapView }
+    )
+}
+
+@Composable
+fun rememberMapViewWithLifecycle(context: Context): MapView {
     val mapView = remember {
         MapView(context).apply {
             setTileSource(TileSourceFactory.MAPNIK)
             setMultiTouchControls(true)
-            controller.setZoom(15)
-            if(gpxCoordinates.value.isNotEmpty()) {
-                Log.d("testowanie", "MapScreen: ${gpxCoordinates.value[0].latitude}")
-                Log.d("testowanie", "MapScreen: ${gpxCoordinates.value[0].longitude}")
-                controller.setCenter(
-                    GeoPoint(
-                        gpxCoordinates.value[0].latitude,
-                        gpxCoordinates.value[1].longitude
-                    )
-                )
-            }
         }
-    }
-
-    LaunchedEffect(gpxCoordinates.value) {
-        val points = gpxCoordinates.value.map { GeoPoint(it.latitude, it.longitude) }
-        val polyline = Polyline().apply {
-            setPoints(points)
-            color = Color.BLUE
-            width = 5f
-        }
-        mapView.overlays.clear()
-        mapView.overlays.add(polyline)
-        mapView.invalidate()
     }
 
     DisposableEffect(mapView) {
@@ -69,8 +77,5 @@ fun MapScreen(viewModel: GpxViewModel) {
         }
     }
 
-    AndroidView(
-        modifier = Modifier.fillMaxSize(),
-        factory = { mapView }
-    )
+    return mapView
 }
