@@ -2,6 +2,7 @@ package com.example.komhunter.core.di
 
 import com.example.komhunter.Weather.data.WeatherRepository
 import com.example.komhunter.Weather.ui.WeatherViewModel
+import com.example.komhunter.core.data.database.MapDatabase
 import com.example.komhunter.core.data.network.ResponseService
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
@@ -15,8 +16,9 @@ import org.koin.dsl.module
 
 var networkModule = module {
     viewModel { WeatherViewModel(get()) }
-    single {WeatherRepository(get()) }
-    single { ResponseService(get()) }
+    single { WeatherRepository(get(), get()) }
+        single { ResponseService(get()) }
+        single { MapDatabase.getDatabase(get()).weatherDao() }
 
     single {
         HttpClient(CIO) {

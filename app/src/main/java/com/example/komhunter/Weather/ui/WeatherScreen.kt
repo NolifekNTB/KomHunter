@@ -24,11 +24,11 @@ fun WeatherScreen(viewModel: WeatherViewModel = koinViewModel()) {
 
     weatherData?.let { data ->
         Column(modifier = Modifier.padding(16.dp)) {
-            data.list.forEach { weather ->
+            data.forEach { weather ->
                 Text("" +
                         "Date: ${weather.dt_txt}, " +
-                        "Wind Speed: ${weather.wind.speed}, " +
-                        "Wind Direction: ${weather.wind.deg}",
+                        "Wind Speed: ${weather.wind_speed}, " +
+                        "Wind Direction: ${weather.wind_deg}",
                     modifier = Modifier.padding(vertical = 4.dp))
                  }
             }

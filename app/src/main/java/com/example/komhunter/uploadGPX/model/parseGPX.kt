@@ -1,6 +1,6 @@
 package com.example.komhunter.uploadGPX.model
 
-import com.example.komhunter.core.data.database.GpxCoordinate
+import com.example.komhunter.core.data.database.entities.GpxCoordinate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.xmlpull.v1.XmlPullParser

@@ -1,11 +1,11 @@
-package com.example.komhunter.core.data.database
+package com.example.komhunter.core.data.database.daos
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.komhunter.core.data.database.entities.GpxCoordinate
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 
 @Dao
 interface GpxCoordinateDao {

@@ -1,4 +1,4 @@
-package com.example.komhunter.core.data.database
+package com.example.komhunter.core.data.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
