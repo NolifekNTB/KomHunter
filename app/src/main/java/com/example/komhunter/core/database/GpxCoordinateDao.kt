@@ -4,6 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Dao
 interface GpxCoordinateDao {
@@ -11,7 +13,7 @@ interface GpxCoordinateDao {
     suspend fun insertAll(coordinates: List<GpxCoordinate>)
 
     @Query("SELECT * FROM gpx_coordinates")
-    suspend fun getAllCoordinates(): List<GpxCoordinate>
+    fun getAllCoordinates(): Flow<List<GpxCoordinate>>
 
     @Query("DELETE FROM gpx_coordinates")
     suspend fun deleteAll()

@@ -51,6 +51,9 @@ android {
 }
 
 dependencies {
+    implementation (libs.koin.androidx.compose)
+    implementation (libs.koin.android)
+    implementation(libs.koin.core)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)

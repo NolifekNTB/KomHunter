@@ -18,11 +18,11 @@ import java.io.InputStream
 
 @Composable
 fun GpxFilePicker(
-    onGpxParsed: (List<GpxCoordinate>) -> Unit
+    viewModel: GpxViewModel,
+    onNavigate: () -> Unit
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
-    val onGpxParsedState = rememberUpdatedState(onGpxParsed)
 
 
     val gpxFileLauncher = rememberLauncherForActivityResult(
@@ -38,10 +38,9 @@ fun GpxFilePicker(
                 inputStream?.let { stream ->
                     val coordinates = parseGpx(stream)
 
-                    val db = GpxDatabase.getDatabase(context)
-                    db.gpxCoordinateDao().insertAll(coordinates)
+                    viewModel.insertAll(coordinates)
 
-                    onGpxParsedState.value(coordinates)
+                    onNavigate()
                 }
             }
         }
