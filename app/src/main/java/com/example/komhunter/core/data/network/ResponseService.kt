@@ -16,7 +16,7 @@ class ResponseService(
             parameter("lon", longitude)
             parameter("appid", "14efda8337fb20cda4a865dbee112ae8")
             parameter("units", "metric")
-            parameter("cnt", "5")
+            parameter("cnt", "40")
         }.body()
     }
 }

@@ -10,7 +10,6 @@ import com.example.komhunter.uploadGPX.data.GpxRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,8 +19,8 @@ class WeatherViewModel(
     private val weatherRepository: WeatherRepository,
     private val gpxRepository: GpxRepository
 ) : ViewModel() {
-    private val _windImpact = MutableStateFlow<Double?>(null)
-    val windImpact: StateFlow<Double?> = _windImpact
+    private val _bestTime = MutableStateFlow<Pair<Long, Double>?>(null)
+    val bestTime: StateFlow<Pair<Long, Double>?> = _bestTime
 
     private val _gpxCoordinates = MutableStateFlow<List<GpxCoordinate>>(emptyList())
     val gpxCoordinates: StateFlow<List<GpxCoordinate>> = _gpxCoordinates
@@ -45,29 +44,33 @@ class WeatherViewModel(
         }
     }
 
-    fun fetchWeatherData(latitude: Double, longitude: Double) {
+    private fun fetchWeatherData(latitude: Double, longitude: Double) {
         viewModelScope.launch {
             weatherRepository.getWeather(latitude, longitude)
-            getWeatherDataFromDb()
+            fetchWeatherDataFromDb()
         }
     }
 
-    private fun getWeatherDataFromDb() {
+    private fun fetchWeatherDataFromDb() {
         viewModelScope.launch {
             val data = weatherRepository.getStoredWeatherData()
             _weatherData.value = data
             if (_gpxCoordinates.value.isNotEmpty() && _weatherData.value.isNotEmpty()) {
-                calculateWindImpact()
+                calculateBestTime()
             }
         }
     }
 
-    private fun calculateWindImpact() {
+    private fun calculateBestTime() {
         viewModelScope.launch {
-            val impact = withContext(Dispatchers.Default) {
-                aggregateWindImpact(_gpxCoordinates.value, _weatherData.value)
+            val bestTime = withContext(Dispatchers.Default) {
+                _weatherData.value
+                    .map { weatherData ->
+                        weatherData.dt to aggregateWindImpact(_gpxCoordinates.value, weatherData)
+                    }
+                    .maxByOrNull { it.second }
             }
-            _windImpact.value = impact
+            _bestTime.value = bestTime
         }
     }
 }

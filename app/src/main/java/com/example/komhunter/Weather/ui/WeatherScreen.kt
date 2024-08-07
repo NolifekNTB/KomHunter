@@ -16,12 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel = koinViewModel()) {
-    val windImpact by viewModel.windImpact.collectAsState()
-    val gpxCoordinates by viewModel.gpxCoordinates.collectAsState()
-    val weatherData by viewModel.weatherData.collectAsState()
+    val bestTime by viewModel.bestTime.collectAsState()
 
     Column(
         modifier = Modifier
@@ -30,11 +31,13 @@ fun WeatherScreen(viewModel: WeatherViewModel = koinViewModel()) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        if(windImpact == null) {
+        if(bestTime == null) {
             Text(text = "Loading...", textAlign = TextAlign.Center)
         } else {
-            windImpact?.let { impact ->
-                Text(text = "Total Wind Impact: ${impact.toInt()} km/h", textAlign = TextAlign.Center)
+            bestTime?.let { (timestamp, impact) ->
+                val date = Date(timestamp * 1000)
+                val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                Text(text = "Best time for KOM: ${sdf.format(date)}\nWind Impact: ${impact.toInt()} km/h", textAlign = TextAlign.Center)
             }
         }
     }

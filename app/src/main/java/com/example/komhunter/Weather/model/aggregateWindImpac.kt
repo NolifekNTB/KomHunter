@@ -5,19 +5,18 @@ import com.example.komhunter.core.data.database.entities.WeatherDataEntity
 
 fun aggregateWindImpact(
     coordinates: List<GpxCoordinate>,
-    weatherData: List<WeatherDataEntity>
+    weatherData: WeatherDataEntity
 ): Double {
     val segments = divideRouteIntoSegments(coordinates)
     var totalWindImpact = 0.0
 
-    segments.forEach { segment ->
-        val segmentBearing = calculateBearing(segment.first, segment.second)
+    segments.forEach { (start, end) ->
+        val segmentBearing = calculateBearing(start, end)
 
-        val closestWeather = weatherData[0]
         val effectiveWindSpeed = calculateEffectiveWindSpeed(
             segmentBearing,
-            closestWeather.wind_deg.toDouble(),
-            closestWeather.wind_speed
+            weatherData.wind_deg.toDouble(),
+            weatherData.wind_speed
         )
         totalWindImpact += effectiveWindSpeed
     }
