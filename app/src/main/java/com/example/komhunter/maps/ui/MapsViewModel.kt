@@ -1,4 +1,4 @@
-package com.example.komhunter.uploadGPX.ui
+package com.example.komhunter.maps.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,13 +9,17 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class GpxViewModel(private val repository: GpxRepository): ViewModel() {
+class MapsViewModel(private val repository: GpxRepository): ViewModel() {
     private var _gpxCoordinates = MutableStateFlow<List<GpxCoordinate>>(emptyList())
     var gpxCoordinates = _gpxCoordinates.asStateFlow()
 
-    fun insertAll(coordinates: List<GpxCoordinate>) {
+    init {
+        getAllCoordinates()
+    }
+
+    fun getAllCoordinates() {
         viewModelScope.launch {
-            repository.insertAll(coordinates)
+            _gpxCoordinates.value = repository.getAllCoordinates().first()
         }
     }
- }
+}

@@ -11,15 +11,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import com.example.komhunter.uploadGPX.model.parseGpx
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 import java.io.InputStream
 
 @Composable
-fun GpxFilePicker(
-    viewModel: GpxViewModel,
-    onNavigate: () -> Unit
-) {
+fun GpxFilePicker(onNavigate: () -> Unit) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
+    val viewModel = koinViewModel<GpxViewModel>()
 
 
     val gpxFileLauncher = rememberLauncherForActivityResult(

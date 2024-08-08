@@ -15,24 +15,28 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "gpxPicker") {
-        composable("gpxPicker") { entry ->
-            val viewModel = entry.sharedViewModel<GpxViewModel>(navController, "gpxPicker")
-            GpxFilePicker(viewModel) {
-                navController.navigate("mapView")
+    NavHost(navController = navController, startDestination = Screen.GpxPicker.route) {
+        composable(Screen.GpxPicker.route) { entry ->
+            val viewModel = entry.sharedViewModel<GpxViewModel>(navController, Screen.GpxPicker.route)
+
+            GpxFilePicker() {
+                navController.navigate(Screen.MapView.route)
             }
         }
-        composable("mapView") { entry ->
-            val viewModel = entry.sharedViewModel<GpxViewModel>(navController, "mapView")
-            MapScreen(viewModel) {
-                navController.navigate("weatherScreen")
+        composable(Screen.MapView.route) { entry ->
+            val viewModel = entry.sharedViewModel<GpxViewModel>(navController, Screen.MapView.route)
+
+            MapScreen() {
+                navController.navigate(Screen.WeatherScreen.route)
             }
         }
-        composable("weatherScreen") {
+        composable(Screen.WeatherScreen.route) {
             WeatherScreen()
         }
     }
 }
+
+
 
 @Composable
 inline fun <reified T : ViewModel> NavBackStackEntry.sharedViewModel(

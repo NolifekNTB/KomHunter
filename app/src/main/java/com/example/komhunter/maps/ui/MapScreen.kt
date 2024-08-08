@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.komhunter.uploadGPX.ui.GpxViewModel
+import org.koin.androidx.compose.koinViewModel
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.BoundingBox
 import org.osmdroid.util.GeoPoint
@@ -21,8 +22,9 @@ import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Polyline
 
 @Composable
-fun MapScreen(viewModel: GpxViewModel, onNavigate: () -> Unit) {
+fun MapScreen(onNavigate: () -> Unit) {
     val context = LocalContext.current
+    val viewModel = koinViewModel<MapsViewModel>()
     val gpxCoordinates = viewModel.gpxCoordinates.collectAsState().value
     val mapView = rememberMapViewWithLifecycle(context)
 
