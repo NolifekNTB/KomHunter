@@ -10,29 +10,29 @@ import com.example.komhunter.uploadGPX.ui.GpxFilePicker
 import kotlinx.serialization.Serializable
 
 @Composable
-fun AppNavigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = ScreenA) {
-        composable<ScreenA> {
+fun NavigationHost(navController: NavHostController) {
+    NavHost(navController = navController, startDestination = RouteScreen) {
+        composable<RouteScreen> {
             GpxFilePicker() {
-                navController.navigate(ScreenB)
+                navController.navigate(MapScreen)
             }
         }
-        composable<ScreenB> {
+        composable<MapScreen> {
             MapScreen() {
-                navController.navigate(ScreenC)
+                navController.navigate(WeatherScreen)
             }
         }
-        composable<ScreenC> {
+        composable<WeatherScreen> {
             WeatherScreen()
         }
     }
 }
 
 @Serializable
-object ScreenA
+object RouteScreen
 
 @Serializable
-object ScreenB
+object MapScreen
 
 @Serializable
-object ScreenC
+object WeatherScreen
