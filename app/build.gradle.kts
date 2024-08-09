@@ -1,9 +1,12 @@
+import org.jetbrains.kotlin.gradle.utils.loadPropertyFromResources
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kapt)
     alias(libs.plugins.compose.compiler)
-    kotlin("plugin.serialization") version "2.0.10"
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -21,6 +24,10 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+        buildConfigField("String", "API_KEY", "\"${properties.getProperty("API_KEY")}\"")
     }
 
     buildTypes {
@@ -41,6 +48,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 //    composeOptions {
 //        kotlinCompilerExtensionVersion = "1.5.1"
@@ -53,13 +61,13 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.1")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.12")
-    implementation("io.ktor:ktor-client-content-negotiation:2.3.12")
-    implementation("io.ktor:ktor-client-core:2.3.12")
-    implementation("io.ktor:ktor-client-cio:2.3.12")
-    implementation("io.ktor:ktor-client-serialization:2.3.12")
-    implementation("io.ktor:ktor-client-logging:2.3.12")
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.serialization)
+    implementation(libs.ktor.client.logging)
     implementation (libs.koin.androidx.compose)
     implementation (libs.koin.android)
     implementation(libs.koin.core)

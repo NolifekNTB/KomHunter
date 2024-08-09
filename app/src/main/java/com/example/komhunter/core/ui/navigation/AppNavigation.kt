@@ -1,55 +1,38 @@
 package com.example.komhunter.core.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.lifecycle.ViewModel
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.komhunter.Weather.ui.WeatherScreen
 import com.example.komhunter.maps.ui.MapScreen
 import com.example.komhunter.uploadGPX.ui.GpxFilePicker
-import com.example.komhunter.uploadGPX.ui.GpxViewModel
-import org.koin.androidx.compose.getViewModel
+import kotlinx.serialization.Serializable
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Screen.GpxPicker.route) {
-        composable(Screen.GpxPicker.route) { entry ->
-            val viewModel = entry.sharedViewModel<GpxViewModel>(navController, Screen.GpxPicker.route)
-
+    NavHost(navController = navController, startDestination = ScreenA) {
+        composable<ScreenA> {
             GpxFilePicker() {
-                navController.navigate(Screen.MapView.route)
+                navController.navigate(ScreenB)
             }
         }
-        composable(Screen.MapView.route) { entry ->
-            val viewModel = entry.sharedViewModel<GpxViewModel>(navController, Screen.MapView.route)
-
+        composable<ScreenB> {
             MapScreen() {
-                navController.navigate(Screen.WeatherScreen.route)
+                navController.navigate(ScreenC)
             }
         }
-        composable(Screen.WeatherScreen.route) {
+        composable<ScreenC> {
             WeatherScreen()
         }
     }
 }
 
+@Serializable
+object ScreenA
 
+@Serializable
+object ScreenB
 
-@Composable
-inline fun <reified T : ViewModel> NavBackStackEntry.sharedViewModel(
-    navController: NavHostController,
-    navGraphRoute: String
-): T {
-    val parentEntry = remember(this) {
-        navController.getBackStackEntry(navGraphRoute)
-    }
-    return parentEntry.getKoinViewModel()
-}
-
-@Composable
-inline fun <reified T : ViewModel> NavBackStackEntry.getKoinViewModel(): T {
-    return getViewModel(viewModelStoreOwner = this)
-}
+@Serializable
+object ScreenC

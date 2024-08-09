@@ -21,7 +21,8 @@ import java.util.Date
 import java.util.Locale
 
 @Composable
-fun WeatherScreen(viewModel: WeatherViewModel = koinViewModel()) {
+fun WeatherScreen() {
+    val viewModel: WeatherViewModel = koinViewModel()
     val bestTime by viewModel.bestTime.collectAsState()
 
     Column(

@@ -1,5 +1,6 @@
 package com.example.komhunter.core.data.network
 
+import com.example.komhunter.BuildConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -14,7 +15,7 @@ class ResponseService(
             url("https://api.openweathermap.org/data/2.5/forecast")
             parameter("lat", latitude)
             parameter("lon", longitude)
-            parameter("appid", "14efda8337fb20cda4a865dbee112ae8")
+            parameter("appid", BuildConfig.API_KEY)
             parameter("units", "metric")
             parameter("cnt", "40")
         }.body()
