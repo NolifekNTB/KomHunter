@@ -61,6 +61,7 @@ android {
 }
 
 dependencies {
+    implementation ("tech.utsmankece:osm-androd-compose:0.0.5")
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.client.content.negotiation)

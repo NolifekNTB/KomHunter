@@ -2,16 +2,26 @@ package com.example.komhunter.maps.ui
 
 import android.content.Context
 import android.graphics.Color
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.komhunter.uploadGPX.ui.GpxViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -55,14 +65,22 @@ fun MapScreen(onNavigate: () -> Unit) {
         }
     }
 
-    Column {
-        Button(onClick = { onNavigate() }, modifier = Modifier.weight(0.2f)) {
-            Text("Show weather data")
-        }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         AndroidView(
-            modifier = Modifier.weight(0.8f),
+            modifier = Modifier.fillMaxHeight(0.9f).fillMaxWidth(),
             factory = { mapView }
         )
+        FloatingActionButton(
+            onClick = { onNavigate() },
+            modifier = Modifier
+                .padding(start = 300.dp)
+                .size(64.dp)
+        ) {
+            Text(text = "Next")
+        }
     }
 }
 
