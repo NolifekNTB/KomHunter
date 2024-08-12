@@ -2,16 +2,17 @@ package com.example.komhunter.maps.ui
 
 import android.content.Context
 import android.graphics.Color
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -23,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.example.komhunter.uploadGPX.ui.GpxViewModel
+import com.example.komhunter.core.ui.theme.white
 import org.koin.androidx.compose.koinViewModel
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.BoundingBox
@@ -65,21 +66,22 @@ fun MapScreen(onNavigate: () -> Unit) {
         }
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
         AndroidView(
-            modifier = Modifier.fillMaxHeight(0.9f).fillMaxWidth(),
+            modifier = Modifier.fillMaxSize(),
             factory = { mapView }
         )
         FloatingActionButton(
             onClick = { onNavigate() },
             modifier = Modifier
-                .padding(start = 300.dp)
-                .size(64.dp)
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 100.dp, end = 20.dp)
         ) {
-            Text(text = "Next")
+            Icon(
+                imageVector = Icons.Filled.LocationOn,
+                contentDescription = "Show Weather Data",
+                tint = white
+            )
         }
     }
 }
