@@ -12,5 +12,5 @@ interface WeatherDao {
     suspend fun insertAll(weatherData: List<WeatherDataEntity>)
 
     @Query("SELECT * FROM weather_data")
-    suspend fun getAllWeatherData(): List<WeatherDataEntity>
+    suspend fun getStoredWeatherData(): List<WeatherDataEntity>
 }

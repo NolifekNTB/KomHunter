@@ -17,7 +17,7 @@ class ResponseService(
             parameter("lon", longitude)
             parameter("appid", BuildConfig.API_KEY)
             parameter("units", "metric")
-            parameter("cnt", "40")
+            parameter("cnt", "10") //TODO: 10 -> 40
         }.body()
     }
 }

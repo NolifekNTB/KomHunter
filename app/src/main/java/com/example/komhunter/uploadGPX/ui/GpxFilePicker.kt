@@ -39,6 +39,9 @@ fun GpxFilePicker(onNavigate: () -> Unit) {
                 inputStream?.let { stream ->
                     val coordinates = parseGpx(stream)
 
+                    if(coordinates.isNotEmpty()) {
+                        viewModel.deleteAll()
+                    }
                     viewModel.insertAll(coordinates)
 
                     onNavigate()
@@ -52,7 +55,10 @@ fun GpxFilePicker(onNavigate: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
         ) {
-        Button(onClick = { gpxFileLauncher.launch(arrayOf("application/gpx+xml", "application/octet-stream")) }) {
+        Button(onClick = {
+            gpxFileLauncher.launch(arrayOf("application/gpx+xml", "application/octet-stream"))
+
+        }) {
             Text("Select GPX File")
         }
     }

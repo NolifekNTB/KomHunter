@@ -39,6 +39,8 @@ fun MapScreen(onNavigate: () -> Unit) {
     val gpxCoordinates = viewModel.gpxCoordinates.collectAsState().value
     val mapView = rememberMapViewWithLifecycle(context)
 
+
+
     LaunchedEffect(gpxCoordinates) {
         if (gpxCoordinates.isNotEmpty()) {
             val points = gpxCoordinates.map { GeoPoint(it.latitude, it.longitude) } //convert all gpx coordinates to GeoPoints

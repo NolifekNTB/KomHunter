@@ -1,6 +1,5 @@
-package com.example.komhunter.Weather.model
+package com.example.komhunter.Weather.model.WindCalculations
 
-import android.util.Log
 import kotlin.math.cos
 
 fun calculateEffectiveWindSpeed(

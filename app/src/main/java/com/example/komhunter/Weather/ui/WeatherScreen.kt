@@ -25,6 +25,10 @@ fun WeatherScreen() {
     val viewModel: WeatherViewModel = koinViewModel()
     val bestTime by viewModel.bestTime.collectAsState()
 
+    LaunchedEffect(Unit) {
+        viewModel.fetchGpxCoordinates()
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()

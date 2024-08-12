@@ -1,6 +1,5 @@
-package com.example.komhunter.Weather.model
+package com.example.komhunter.Weather.model.WindCalculations
 
-import android.util.Log
 import com.example.komhunter.core.data.database.entities.GpxCoordinate
 
 fun divideRouteIntoSegments(coordinates: List<GpxCoordinate>): List<Pair<GpxCoordinate, GpxCoordinate>> {

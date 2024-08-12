@@ -9,13 +9,21 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class GpxViewModel(private val repository: GpxRepository): ViewModel() {
+class GpxViewModel(
+    private val repository: GpxRepository
+): ViewModel() {
     private var _gpxCoordinates = MutableStateFlow<List<GpxCoordinate>>(emptyList())
     var gpxCoordinates = _gpxCoordinates.asStateFlow()
 
     fun insertAll(coordinates: List<GpxCoordinate>) {
         viewModelScope.launch {
             repository.insertAll(coordinates)
+        }
+    }
+
+    fun deleteAll() {
+        viewModelScope.launch {
+            repository.deleteAll()
         }
     }
  }

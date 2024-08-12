@@ -1,6 +1,7 @@
 package com.example.komhunter.core.di
 
-import com.example.komhunter.Weather.data.WeatherRepository
+import com.example.komhunter.Weather.data.WeatherApiRepository
+import com.example.komhunter.Weather.data.WeatherDbRepository
 import com.example.komhunter.Weather.ui.WeatherViewModel
 import com.example.komhunter.core.data.database.MapDatabase
 import com.example.komhunter.core.data.network.ResponseService
@@ -16,11 +17,12 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 var networkModule = module {
-    viewModel { WeatherViewModel(get(), get()) }
-    single { WeatherRepository(get(), get()) }
-        single { ResponseService(get()) }
+    viewModel { WeatherViewModel(get(), get(), get()) }
+    single { WeatherDbRepository(get()) }
         single { MapDatabase.getDatabase(get()).weatherDao() }
     single { GpxRepository( get ()) }
+    single { WeatherApiRepository(get()) }
+        single { ResponseService(get()) }
 
     single {
         HttpClient(CIO) {
