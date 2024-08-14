@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class WeatherRepository(context: Context): WeatherDao {
-    val weatherDao = WeatherDatabase.getDatabase(context).weatherDao()
+    var weatherDao = WeatherDatabase.getDatabase(context).weatherDao()
 
     override suspend fun insertAll(weatherData: List<WeatherData>) {
         withContext(Dispatchers.IO) {

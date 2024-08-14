@@ -61,6 +61,12 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.junit.ktx)
+    testImplementation (libs.kotlinx.coroutines.test)
+    testImplementation (libs.mockito.core)
+    testImplementation (libs.mockito.kotlin)
+    testImplementation (libs.junit)
+    testImplementation (libs.robolectric)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.client.content.negotiation)
