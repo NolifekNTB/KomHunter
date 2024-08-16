@@ -1,4 +1,4 @@
-package com.example.komhunter
+package com.example.komhunter.Route.Weather
 
 import com.example.komhunter.Route.UploadGPX.data.models.GpxCoordinate
 import com.example.komhunter.Route.Weather.data.models.WeatherData

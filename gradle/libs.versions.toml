@@ -14,6 +14,7 @@ kotlinxCoroutinesAndroid = "1.8.1"
 kotlinxCoroutinesCore = "1.8.1"
 kotlinxCoroutinesTest = "1.8.1"
 kotlinxSerializationJson = "1.7.1"
+ktorClientMock = "2.3.0"
 ktorSerializationKotlinxJson = "2.3.12"
 ktorClientContentNegotiation = "2.3.12"
 ktorClientCore = "2.3.12"
@@ -25,6 +26,7 @@ activityCompose = "1.9.1"
 composeBom = "2023.08.00"
 mockitoCore = "5.0.0"
 mockitoKotlin = "4.0.0"
+mockkVersion = "1.13.2"
 navigationCompose = "2.8.0-beta06"
 osmdroidAndroid = "6.1.11"
 osmdroidWms = "6.1.11"
@@ -66,6 +68,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientLogging" }
+ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktorClientMock" }
 ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktorClientSerialization" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCio" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
@@ -73,6 +76,7 @@ ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negoti
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorSerializationKotlinxJson" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
+mockk-mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
 osmdroid-android = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroidAndroid" }
 osmdroid-wms = { module = "org.osmdroid:osmdroid-wms", version.ref = "osmdroidWms" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }

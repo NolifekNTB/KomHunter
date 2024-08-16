@@ -61,6 +61,8 @@ android {
 }
 
 dependencies {
+    testImplementation (libs.mockk.mockk)
+    testImplementation (libs.ktor.client.mock)
     implementation(libs.androidx.junit.ktx)
     testImplementation (libs.kotlinx.coroutines.test)
     testImplementation (libs.mockito.core)

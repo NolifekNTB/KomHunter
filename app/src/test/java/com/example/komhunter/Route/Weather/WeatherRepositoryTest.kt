@@ -1,4 +1,4 @@
-package com.example.komhunter
+package com.example.komhunter.Route.Weather
 
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
