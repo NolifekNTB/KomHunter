@@ -19,7 +19,7 @@ fun divideRouteIntoSegments(coordinates: List<GpxCoordinate>): List<Pair<GpxCoor
     return coordinates.zipWithNext()
 }
 
-private fun calculateSegmentWindImpact(
+fun calculateSegmentWindImpact(
     segment: Pair<GpxCoordinate, GpxCoordinate>,
     weatherData: WeatherData
 ): Double {
