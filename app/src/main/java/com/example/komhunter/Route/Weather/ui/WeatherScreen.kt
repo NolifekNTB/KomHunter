@@ -29,7 +29,7 @@ fun WeatherScreen() {
 }
 
 @Composable
-private fun WeatherScreenContent(bestTime: Pair<Long, Double>?) {
+fun WeatherScreenContent(bestTime: Pair<Long, Double>?) {
     Column(
         modifier = Modifier
             .fillMaxSize()
