@@ -23,13 +23,27 @@ import org.koin.androidx.compose.koinViewModel
 import java.io.InputStream
 
 @Composable
-fun GpxFilePicker(onNavigate: () -> Unit) {
+fun GpxFilePicker(viewModel: GpxViewModel = koinViewModel(), onNavigate: () -> Unit) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
-    val viewModel: GpxViewModel = koinViewModel()
     val gpxFileLauncher = rememberGpxFileLauncher(context, coroutineScope, viewModel, onNavigate)
 
     FilePickerUI(gpxFileLauncher)
+}
+
+@Composable
+fun FilePickerUI(gpxFileLauncher: ManagedActivityResultLauncher<Array<String>, Uri?>) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Button(onClick = {
+            gpxFileLauncher.launch(arrayOf("application/gpx+xml", "application/octet-stream"))
+        }) {
+            Text("Select GPX File")
+        }
+    }
 }
 
 @Composable
@@ -50,13 +64,18 @@ private fun rememberGpxFileLauncher(
     }
 }
 
-private suspend fun handleGpxFileUri(
+suspend fun handleGpxFileUri(
     context: Context,
     uri: Uri,
     viewModel: GpxViewModel,
     onNavigate: () -> Unit
 ) {
-    context.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    try {
+        context.contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    } catch (e: SecurityException) {
+        println("Permission denied: $e")
+    }
+
     context.contentResolver.openInputStream(uri)?.use { stream ->
         val coordinates = parseGpx(stream)
         if (coordinates.isNotEmpty()) {
@@ -65,19 +84,5 @@ private suspend fun handleGpxFileUri(
             onNavigate()
         }
     }
-}
 
-@Composable
-private fun FilePickerUI(gpxFileLauncher: ManagedActivityResultLauncher<Array<String>, Uri?>) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Button(onClick = {
-            gpxFileLauncher.launch(arrayOf("application/gpx+xml", "application/octet-stream"))
-        }) {
-            Text("Select GPX File")
-        }
-    }
 }

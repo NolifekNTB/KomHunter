@@ -56,11 +56,17 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/LICENSE.md"
+            excludes += "META-INF/LICENSE-notice.md"
         }
     }
 }
 
 dependencies {
+    // For Espresso
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation ("androidx.test.espresso:espresso-intents:3.6.1")
+    androidTestImplementation ("io.mockk:mockk-android:1.13.2")
     testImplementation (libs.mockk.mockk)
     testImplementation (libs.ktor.client.mock)
     implementation(libs.androidx.junit.ktx)
