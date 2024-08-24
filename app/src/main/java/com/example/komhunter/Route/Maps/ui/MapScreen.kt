@@ -48,7 +48,7 @@ fun MapScreen(onNavigate: () -> Unit) {
 }
 
 @Composable
-private fun DisplayMapContent(mapView: MapView, polyline: Polyline?, boundingBox: BoundingBox?) {
+fun DisplayMapContent(mapView: MapView, polyline: Polyline?, boundingBox: BoundingBox?) {
     LaunchedEffect(polyline, boundingBox) {
         if (polyline != null && boundingBox != null) {
             mapView.overlays.clear()
@@ -60,7 +60,7 @@ private fun DisplayMapContent(mapView: MapView, polyline: Polyline?, boundingBox
 }
 
 @Composable
-private fun NavigationFab(onNavigate: () -> Unit, modifier: Modifier) {
+fun NavigationFab(onNavigate: () -> Unit, modifier: Modifier) {
     FloatingActionButton(
         onClick = { onNavigate() },
         modifier = modifier

@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kapt)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.paparazzi)
 }
 
 android {
@@ -63,10 +64,10 @@ android {
 }
 
 dependencies {
-    // For Espresso
-    androidTestImplementation ("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation ("androidx.test.espresso:espresso-intents:3.6.1")
-    androidTestImplementation ("io.mockk:mockk-android:1.13.2")
+
+    androidTestImplementation (libs.androidx.espresso.core)
+    androidTestImplementation (libs.androidx.espresso.intents)
+    androidTestImplementation (libs.mockk.android)
     testImplementation (libs.mockk.mockk)
     testImplementation (libs.ktor.client.mock)
     implementation(libs.androidx.junit.ktx)
