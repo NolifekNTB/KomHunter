@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.komhunter.Core.ui.navigation.NavigationHost
 import com.example.komhunter.Core.ui.navigation.BottomNavMenu
@@ -23,8 +24,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppNavigation() {
-    val navController = rememberNavController()
+fun AppNavigation(navController : NavHostController = rememberNavController()) {
     var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
 
     Scaffold(

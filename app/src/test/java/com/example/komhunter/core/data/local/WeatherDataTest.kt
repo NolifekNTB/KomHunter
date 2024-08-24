@@ -17,7 +17,6 @@ class WeatherDataTest {
         assertEquals(0, weatherData.dt)
         assertEquals(0.0, weatherData.temp)
         assertEquals(0.0, weatherData.feels_like)
-        // ... test other default values similarly
     }
 
     @Test
@@ -28,7 +27,6 @@ class WeatherDataTest {
             temp = 25.0,
             weather_main = "Clear",
             weather_description = "clear sky"
-            // set other fields as needed
         )
 
         // When

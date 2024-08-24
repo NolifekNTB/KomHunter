@@ -6,5 +6,5 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun ProfileScreen(modifier: Modifier = Modifier) {
-    Text(text = "Profile")
+    Text(text = "ProfileScreen")
 }

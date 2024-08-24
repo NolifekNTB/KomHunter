@@ -26,7 +26,6 @@ class MapScreenPolylineTest {
     fun setup() {
         context = mockk(relaxed = true)
 
-        // Create a mock MapView
         mockMapView = mockk(relaxed = true)
 
         every { mockMapView.overlays } returns mutableListOf()
@@ -59,10 +58,8 @@ class MapScreenPolylineTest {
 
         assert(slot.captured == polyLine)
 
-        // Verify that the mapView zoomed to the bounding box
         verify { mockMapView.zoomToBoundingBox(boundingBox, true) }
 
-        // Verify that the mapView was invalidated
         verify { mockMapView.invalidate() }
     }
 }
