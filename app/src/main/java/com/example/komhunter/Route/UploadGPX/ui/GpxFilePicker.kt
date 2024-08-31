@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.example.komhunter.Route.UploadGPX.domain.parseGpx
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import java.io.InputStream
@@ -47,7 +48,7 @@ fun FilePickerUI(gpxFileLauncher: ManagedActivityResultLauncher<Array<String>, U
 }
 
 @Composable
-private fun rememberGpxFileLauncher(
+fun rememberGpxFileLauncher(
     context: Context,
     coroutineScope: CoroutineScope,
     viewModel: GpxViewModel,

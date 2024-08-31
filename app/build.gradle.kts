@@ -65,6 +65,7 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.navigation.testing)
     androidTestImplementation (libs.androidx.espresso.core)
     androidTestImplementation (libs.androidx.espresso.intents)
     androidTestImplementation (libs.mockk.android)

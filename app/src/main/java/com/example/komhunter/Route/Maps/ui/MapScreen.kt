@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.komhunter.Core.ui.theme.white
@@ -30,9 +31,8 @@ import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Polyline
 
 @Composable
-fun MapScreen(onNavigate: () -> Unit) {
+fun MapScreen(viewModel: MapsViewModel = koinViewModel(), onNavigate: () -> Unit) {
     val context = LocalContext.current
-    val viewModel: MapsViewModel = koinViewModel()
     val boundingBox by viewModel.boundingBox.collectAsState()
     val mapView = rememberMapViewWithLifecycle(context)
 
@@ -65,6 +65,7 @@ fun NavigationFab(onNavigate: () -> Unit, modifier: Modifier) {
         onClick = { onNavigate() },
         modifier = modifier
             .padding(bottom = 100.dp, end = 20.dp)
+            .testTag("WeatherDataFab"),
     ) {
         Icon(
             imageVector = Icons.Filled.LocationOn,
