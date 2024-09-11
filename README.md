@@ -12,6 +12,14 @@ KOM Hunter is an Android app designed to help cyclists get more KOMs by predicti
 - [License](#license)
 - [Contact](#contact)
 
+### App Screenshots
+
+![Route Map](images/Route.jpg)
+*Route displayed on the map.*
+
+![GPX File Selection](images/SelectGpx.png)
+*Selecting a GPX file for route.*
+
 ## Description
 
 KOM Hunter leverages weather data to analyze and predict the optimal times for cyclists to ride specific routes, taking wind conditions into account. The app allows users to upload GPX files, display routes on a map, and receive notifications about the best riding times.
