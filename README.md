@@ -14,10 +14,10 @@ KOM Hunter is an Android app designed to help cyclists get more KOMs by predicti
 
 ### App Screenshots
 
-![Route Map](images/Route.jpg)
+![Route Map](/Route.jpg)
 *Route displayed on the map.*
 
-![GPX File Selection](images/SelectGpx.png)
+![GPX File Selection](/SelectGpx.png)
 *Selecting a GPX file for route.*
 
 ## Description
