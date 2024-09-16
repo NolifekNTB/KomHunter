@@ -81,8 +81,9 @@ suspend fun handleGpxFileUri(
         val coordinates = parseGpx(stream)
         if (coordinates.isNotEmpty()) {
             viewModel.deleteAll()
-            viewModel.insertAll(coordinates)
-            onNavigate()
+            viewModel.insertAll(coordinates) {
+                onNavigate()
+            }
         }
     }
 

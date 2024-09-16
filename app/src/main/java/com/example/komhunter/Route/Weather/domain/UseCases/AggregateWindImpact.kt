@@ -24,6 +24,7 @@ fun calculateSegmentWindImpact(
     weatherData: WeatherData
 ): Double {
     val segmentBearing = calculateBearing(segment.first, segment.second)
+
     val effectiveWindSpeed = calculateEffectiveWindSpeed(
         segmentBearing,
         weatherData.wind_deg.toDouble(),

@@ -15,10 +15,11 @@ class GpxViewModel(
     private var _gpxCoordinates = MutableStateFlow<List<GpxCoordinate>>(emptyList())
     var gpxCoordinates = _gpxCoordinates.asStateFlow()
 
-    fun insertAll(coordinates: List<GpxCoordinate>) {
+    fun insertAll(coordinates: List<GpxCoordinate>, onComplete: () -> Unit) {
         viewModelScope.launch {
             repository.insertAll(coordinates)
             loadAllCoordinates()
+            onComplete()
         }
     }
 

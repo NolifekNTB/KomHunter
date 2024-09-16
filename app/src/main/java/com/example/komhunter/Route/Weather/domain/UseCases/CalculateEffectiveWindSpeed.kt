@@ -7,7 +7,9 @@ fun calculateEffectiveWindSpeed(
     windDirection: Double,
     windSpeed: Double
 ): Double {
-    val angleDifference = (windDirection - segmentBearing).toNormalizedRadians()
+    val adjustedWindDirection = (windDirection + 180) % 360
+
+    val angleDifference = (adjustedWindDirection - segmentBearing).toNormalizedRadians()
 
     return windSpeed * cos(angleDifference)
 }
