@@ -82,7 +82,7 @@ class GpxFilePickerTest {
 
         // Verify that the ViewModel methods were called
         coVerify { mockViewModel.deleteAll() }
-        coVerify { mockViewModel.insertAll(any()) }
+        coVerify { mockViewModel.insertAll(any(), any()) }
 
         // Clean up the test file
         testFilePath.delete()

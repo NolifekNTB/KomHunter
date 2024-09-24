@@ -39,6 +39,24 @@ android {
                 "proguard-rules.pro"
             )
         }
+        create("benchmark") {
+            initWith(buildTypes.getByName("release"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+        }
+        create("benchmark1") {
+            initWith(buildTypes.getByName("release"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+        }
+        create("benchmark2") {
+            initWith(buildTypes.getByName("release"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -64,7 +82,7 @@ android {
 }
 
 dependencies {
-
+    implementation("androidx.benchmark:benchmark-junit4:1.3.0")
     implementation(libs.androidx.navigation.testing)
     androidTestImplementation (libs.androidx.espresso.core)
     androidTestImplementation (libs.androidx.espresso.intents)

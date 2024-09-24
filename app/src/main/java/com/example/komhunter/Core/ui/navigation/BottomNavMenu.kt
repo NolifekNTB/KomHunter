@@ -6,8 +6,12 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.komhunter.R
@@ -16,6 +20,7 @@ import com.example.komhunter.Core.ui.navigation.models.HomeScreen
 import com.example.komhunter.Core.ui.navigation.models.ProfileScreen
 import com.example.komhunter.Core.ui.navigation.models.RouteScreen
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun BottomNavMenu(
     navController: NavHostController,
@@ -24,9 +29,14 @@ fun BottomNavMenu(
 ) {
     val items = getBottomNavItems()
 
-    NavigationBar {
+    NavigationBar(
+        modifier = Modifier.semantics {
+            testTagsAsResourceId = true
+        }
+    ) {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
+                modifier = Modifier.testTag(item.title),
                 selected = selectedItemIndex == index,
                 onClick = {
                     onItemSelected(index)

@@ -5,4 +5,5 @@ plugins {
     alias(libs.plugins.kapt) apply false
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.android.test) apply false
 }

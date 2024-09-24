@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "KomHunter"
 include(":app")
+include(":benchmark")

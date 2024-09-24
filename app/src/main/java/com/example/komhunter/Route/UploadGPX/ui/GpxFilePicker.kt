@@ -14,8 +14,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import com.example.komhunter.Route.UploadGPX.domain.parseGpx
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -32,10 +35,13 @@ fun GpxFilePicker(viewModel: GpxViewModel = koinViewModel(), onNavigate: () -> U
     FilePickerUI(gpxFileLauncher)
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun FilePickerUI(gpxFileLauncher: ManagedActivityResultLauncher<Array<String>, Uri?>) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().semantics {
+            testTagsAsResourceId = true
+        },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

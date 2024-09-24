@@ -181,7 +181,7 @@ import java.util.Locale
 
     private fun verifyGpxFileOperations() {
         coVerify { mockGpxViewModel.deleteAll() }
-        coVerify { mockGpxViewModel.insertAll(any()) }
+        coVerify { mockGpxViewModel.insertAll(any(), any()) }
     }
 
     private fun performNavigationToWeatherScreen() {
