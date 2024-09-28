@@ -20,5 +20,5 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.example.komhunter.Core.data.network.* { *; }
+-keep class com.example.komhunter.core.data.network.* { *; }
 -dontwarn org.slf4j.impl.StaticLoggerBinder

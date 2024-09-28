@@ -1,13 +1,12 @@
 package com.example.komhunter.core.data.local
 
-import com.example.komhunter.Route.Weather.data.models.WeatherData
+import com.example.komhunter.route.weather.data.models.WeatherData
 import junit.framework.TestCase.assertEquals
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.junit.Test
 
 class WeatherDataTest {
-
     @Test
     fun testDefaultValues() {
         // Given
@@ -22,12 +21,13 @@ class WeatherDataTest {
     @Test
     fun testSerialization() {
         // Given
-        val weatherData = WeatherData(
-            dt = 1625247600,
-            temp = 25.0,
-            weather_main = "Clear",
-            weather_description = "clear sky"
-        )
+        val weatherData =
+            WeatherData(
+                dt = 1625247600,
+                temp = 25.0,
+                weather_main = "Clear",
+                weather_description = "clear sky",
+            )
 
         // When
         val jsonString = Json.encodeToString(weatherData)

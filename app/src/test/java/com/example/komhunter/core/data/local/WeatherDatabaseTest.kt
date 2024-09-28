@@ -3,7 +3,6 @@ package com.example.komhunter.core.data.local
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.example.komhunter.Core.data.local.WeatherDatabase
 import junit.framework.Assert.assertNotNull
 import org.junit.After
 import org.junit.Before
@@ -13,16 +12,18 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class WeatherDatabaseTest {
-
     private lateinit var database: WeatherDatabase
     private lateinit var context: Context
 
     @Before
     fun setUp() {
         context = ApplicationProvider.getApplicationContext()
-        database = Room.inMemoryDatabaseBuilder(
-            context, WeatherDatabase::class.java
-        ).build()
+        database =
+            Room
+                .inMemoryDatabaseBuilder(
+                    context,
+                    WeatherDatabase::class.java,
+                ).build()
     }
 
     @After

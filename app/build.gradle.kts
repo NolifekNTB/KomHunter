@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.utils.loadPropertyFromResources
+import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 import java.util.Properties
 
 plugins {
@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.paparazzi)
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
 }
 
 android {
@@ -37,7 +38,7 @@ android {
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
         create("benchmark2") {
@@ -70,20 +71,33 @@ android {
     }
 }
 
+tasks.getByPath("preBuild").dependsOn("ktlintFormat")
+
+ktlint {
+    android = true
+    ignoreFailures = false
+    disabledRules = setOf("no-wildcard-imports")
+    reporters {
+        reporter(ReporterType.PLAIN)
+        reporter(ReporterType.CHECKSTYLE)
+        reporter(ReporterType.SARIF)
+    }
+}
+
 dependencies {
     implementation("androidx.benchmark:benchmark-junit4:1.3.0")
     implementation(libs.androidx.navigation.testing)
-    androidTestImplementation (libs.androidx.espresso.core)
-    androidTestImplementation (libs.androidx.espresso.intents)
-    androidTestImplementation (libs.mockk.android)
-    testImplementation (libs.mockk.mockk)
-    testImplementation (libs.ktor.client.mock)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.espresso.intents)
+    androidTestImplementation(libs.mockk.android)
+    testImplementation(libs.mockk.mockk)
+    testImplementation(libs.ktor.client.mock)
     implementation(libs.androidx.junit.ktx)
-    testImplementation (libs.kotlinx.coroutines.test)
-    testImplementation (libs.mockito.core)
-    testImplementation (libs.mockito.kotlin)
-    testImplementation (libs.junit)
-    testImplementation (libs.robolectric)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.client.content.negotiation)
@@ -91,16 +105,16 @@ dependencies {
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.serialization)
     implementation(libs.ktor.client.logging)
-    implementation (libs.koin.androidx.compose)
-    implementation (libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.android)
     implementation(libs.koin.core)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.work.runtime.ktx)
-    implementation (libs.osmdroid.android)
-    implementation (libs.osmdroid.wms)
+    implementation(libs.osmdroid.android)
+    implementation(libs.osmdroid.wms)
     implementation(libs.play.services.location)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)

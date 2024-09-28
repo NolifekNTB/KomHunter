@@ -6,4 +6,5 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.android.test) apply false
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
 }
