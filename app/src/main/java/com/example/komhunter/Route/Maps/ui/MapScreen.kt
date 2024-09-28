@@ -16,9 +16,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.komhunter.Core.ui.theme.white
@@ -30,6 +33,7 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Polyline
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun MapScreen(viewModel: MapsViewModel = koinViewModel(), onNavigate: () -> Unit) {
     val context = LocalContext.current
@@ -38,7 +42,10 @@ fun MapScreen(viewModel: MapsViewModel = koinViewModel(), onNavigate: () -> Unit
 
     DisplayMapContent(mapView, viewModel.createPolyline(), boundingBox)
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier
+            .fillMaxSize()
+            .semantics { testTagsAsResourceId = true }
+    ) {
         AndroidView(
             modifier = Modifier.fillMaxSize(),
             factory = { mapView }

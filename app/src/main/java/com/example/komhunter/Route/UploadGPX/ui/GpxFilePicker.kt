@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import com.example.komhunter.Route.UploadGPX.domain.parseGpx
@@ -45,9 +46,12 @@ fun FilePickerUI(gpxFileLauncher: ManagedActivityResultLauncher<Array<String>, U
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Button(onClick = {
-            gpxFileLauncher.launch(arrayOf("application/gpx+xml", "application/octet-stream"))
-        }) {
+        Button(
+            modifier = Modifier.testTag("GpxFilePicker"),
+            onClick = {
+                gpxFileLauncher.launch(arrayOf("application/gpx+xml", "application/octet-stream"))
+            }
+        ) {
             Text("Select GPX File")
         }
     }
